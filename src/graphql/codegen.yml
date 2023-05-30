@@ -1,0 +1,18 @@
+schema:
+  - src/graphql/booking-schema.graphql
+documents:
+  - src/graphql/documents/**/*.graphql
+generates:
+  src/graphql/auto-generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+    config:
+      addExplicitOverride: true,
+      declarationKind: interface
+      apolloClientVersion: 3
+      apolloAngularVersion: 4
+      immutableTypes: false
+      namedClient: booking
+      operationResultSuffix: Result
