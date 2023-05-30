@@ -1,0 +1,140 @@
+type ArrivalTerminal {
+  name: String
+}
+
+type ArriveOn {
+  IATACode: String
+  name: String
+  city: City
+}
+
+type Booking {
+  bookingCode: String
+  passengers: Passengers
+  itinerary: Itinerary
+  contactDetails: [ContactDetails]
+}
+
+type Cabin {
+  code: String
+  name: String
+}
+
+type Carrier {
+  code: String
+  name: String
+}
+
+type City {
+  IATACode: String
+  name: String
+  country: Country
+}
+
+type Connections {
+  id: Int
+  duration: String
+  segments: [Segments]
+  destination: Destination
+  origin: Origin
+}
+
+type ContactDetails {
+  class: String
+  address: String
+}
+
+type Country {
+  code: String
+  name: String
+}
+
+type DepartFrom {
+  IATACode: String
+  name: String
+  city: City
+}
+
+type Destination {
+  IATACode: String
+  name: String
+  city: City
+}
+
+type Equipment {
+  code: String
+  name: String
+}
+
+type Itinerary {
+  type: String
+  connections: [Connections]
+}
+
+type MarketingFlight {
+  number: String
+  numberOfStops: Int
+  operatingFlight: OperatingFlight
+  sellingClass: SellingClass
+  status: Status
+  carrier: Carrier
+}
+
+type OperatingFlight {
+  number: String
+  duration: String
+  flown: Boolean
+  checkInStart: String
+  localCheckInStart: String
+  checkInEnd: String
+  localCheckInEnd: String
+  scheduledArrival: String
+  localScheduledArrival: String
+  scheduledDeparture: String
+  localScheduledDeparture: String
+  equipment: Equipment
+  cabin: Cabin
+  arrivalTerminal: ArrivalTerminal
+  carrier: Carrier
+}
+
+type Origin {
+  IATACode: String
+  name: String
+  city: City
+}
+
+type Passengers {
+  id: Int
+  firstName: String
+  lastName: String
+  title: Title
+}
+
+type Query {
+  booking: Booking
+}
+
+type Segments {
+  id: Int
+  type: String
+  informational: Boolean
+  marketingFlight: MarketingFlight
+  arriveOn: ArriveOn
+  departFrom: DepartFrom
+}
+
+type SellingClass {
+  code: String
+}
+
+type Status {
+  code: String
+  name: String
+}
+
+type Title {
+  code: String
+  name: String
+}
+
