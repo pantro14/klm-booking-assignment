@@ -162,10 +162,15 @@ export interface Passengers {
 
 export interface Query {
   __typename?: 'Query';
-  booking?: Maybe<Booking>;
+  bookingDetails?: Maybe<Booking>;
+  loginCheckIn?: Maybe<Booking>;
 }
 
-export interface QueryBookingArgs {
+export interface QueryBookingDetailsArgs {
+  bookingCode: Scalars['String']['input'];
+}
+
+export interface QueryLoginCheckInArgs {
   bookingCode: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
 }
@@ -199,17 +204,29 @@ export interface Title {
 
 export type BookingDetailsQueryVariables = Exact<{
   bookingCode: Scalars['String']['input'];
-  lastName: Scalars['String']['input'];
 }>;
 
 export type BookingDetailsQueryResult = {
   __typename?: 'Query';
-  booking?: { __typename?: 'Booking'; bookingCode?: string | null } | null;
+  bookingDetails?: {
+    __typename?: 'Booking';
+    bookingCode?: string | null;
+  } | null;
+};
+
+export type LoginCheckInQueryVariables = Exact<{
+  bookingCode: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+}>;
+
+export type LoginCheckInQueryResult = {
+  __typename?: 'Query';
+  loginCheckIn?: { __typename?: 'Booking'; bookingCode?: string | null } | null;
 };
 
 export const BookingDetailsDocument = gql`
-  query BookingDetails($bookingCode: String!, $lastName: String!) {
-    booking(bookingCode: $bookingCode, lastName: $lastName) {
+  query BookingDetails($bookingCode: String!) {
+    bookingDetails(bookingCode: $bookingCode) {
       bookingCode
     }
   }
@@ -223,6 +240,27 @@ export class BookingDetailsGQL extends Apollo.Query<
   BookingDetailsQueryVariables
 > {
   override document = BookingDetailsDocument;
+  override client = 'booking';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+export const LoginCheckInDocument = gql`
+  query LoginCheckIn($bookingCode: String!, $lastName: String!) {
+    loginCheckIn(bookingCode: $bookingCode, lastName: $lastName) {
+      bookingCode
+    }
+  }
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LoginCheckInGQL extends Apollo.Query<
+  LoginCheckInQueryResult,
+  LoginCheckInQueryVariables
+> {
+  override document = LoginCheckInDocument;
   override client = 'booking';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);

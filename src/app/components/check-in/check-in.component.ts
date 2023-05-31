@@ -1,46 +1,44 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {BookingService} from '../../services/booking/booking.service';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../../utils/custom-validators/custom-validators';
 import {Router} from '@angular/router';
+import {LetDirective} from '@ngrx/component';
+import {BookingFacadeService} from '../../services/facade/booking-facade.service';
+import {Observable, pipe, tap} from 'rxjs';
+import {CheckInData} from '../../models/check-in-data';
+import {checkInFormControl} from '../../models/check-in-form-control';
 
 @Component({
   selector: 'app-check-in',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  providers: [BookingService],
+  imports: [CommonModule, ReactiveFormsModule, LetDirective],
+  providers: [BookingFacadeService],
   templateUrl: './check-in.component.html',
   styles: [
   ]
 })
-export class CheckInComponent{
-  checkInForm = this.formBuilder.group({
-    bookingCode: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(6),
-        bookingCodeValidateNumbers(),
-        bookingCodeValidateString(),
-      ]
-    ],
-    lastName: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(30),
-      ]
-    ],
-  })
+export class CheckInComponent implements OnInit {
+  checkInData$: Observable<CheckInData>;
+  validCheckIn$: Observable<boolean>;
+  checkInForm;
 
   constructor(
     private formBuilder: FormBuilder,
-    private bookingService: BookingService,
+    private facade: BookingFacadeService,
     private router: Router
-  ) {}
+  ) {
+    this.checkInForm = this.formBuilder.group(checkInFormControl)
+  }
+
+  ngOnInit() {
+    this.checkInData$ = this.facade.getCheckInData$().pipe(
+      tap(checkIn => {
+        this.checkInForm.controls['bookingCode'].setValue(checkIn.bookingCode);
+        this.checkInForm.controls['lastName'].setValue(checkIn.lastName);
+      })
+    )
+  }
 
   get bookingCode() { return this.checkInForm.get('bookingCode')}
 
@@ -48,16 +46,15 @@ export class CheckInComponent{
 
   searchCheckIn() {
     if(!this.checkInForm.invalid) {
-      this.bookingService.fetchBookingDetails(
-        this.bookingCode?.value as string,
-        this.lastName?.value as string
+      const bookingCode = this.bookingCode?.value as string;
+      const lastName = this.lastName?.value as string;
+      this.validCheckIn$ = this.facade.verifyCheckIn$(
+        bookingCode,
+        lastName
+      ).pipe(
+        tap(() =>
+          this.router.navigate(['/booking-details/' + bookingCode]))
       )
-        .subscribe({
-          next: (response) => {
-            this.router.navigate(['booking-details/' + response.data.booking?.bookingCode])
-          },
-          error: err => console.error('error: ', err)
-        })
     }
   }
 }

@@ -2,7 +2,7 @@
 
 ## Schema SDL
 1- Download the schema by running:
-`npm run update-schema:serve`
+`npm run update-schema:server`
 
 
 ## Create autocomplete file with graphql codegen

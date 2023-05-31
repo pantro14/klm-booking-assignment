@@ -135,7 +135,8 @@ type Booking {
 }
 
 type Query {
-  booking(bookingCode: String!, lastName: String!): Booking
+  loginCheckIn(bookingCode: String!, lastName: String!): Booking
+  bookingDetails(bookingCode: String!): Booking
 }
 
 # Types with identical fields:

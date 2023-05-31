@@ -13,66 +13,78 @@
     <p class="mb-5 leading-relaxed text-gray-600">
       You can find your booking by filling out your family name and the booking code in your booking confirmation.
     </p>
-    <div class="space-y-12 py-10">
-      <div class="mb-4">
-        <label for="booking-code" class="text-lg leading-7 font-bold text-gray-600">Booking code</label>
-        <input
-          type="text"
-          id="booking-code"
-          name="booking-code"
-          class="w-full rounded border border-gray-300 bg-white py-2 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-          formControlName="bookingCode"
-          placeholder="XXXX12"
-        />
-        <div *ngIf="ngForm.submitted && checkInForm.invalid" class="text-sm text-red-500 italic">
+    <ng-container *ngrxLet="
+        checkInData$;
+    ">
+      <div class="space-y-12 py-10">
+        <div class="mb-4">
+          <label for="booking-code" class="text-lg leading-7 font-bold text-gray-600">Booking code</label>
+          <input
+            type="text"
+            id="booking-code"
+            name="booking-code"
+            class="w-full rounded border border-gray-300 bg-white py-2 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+            formControlName="bookingCode"
+            placeholder="XXXX12"
+          />
+          <div *ngIf="ngForm.submitted && checkInForm.invalid" class="text-sm text-red-500 italic">
           <span *ngIf="bookingCode?.errors?.['required'] else bookingCodeMinlength;" >
             The booking code is required
           </span>
-          <ng-template #bookingCodeMinlength>
+            <ng-template #bookingCodeMinlength>
             <span *ngIf="bookingCode?.errors?.['minlength'] else bookingCodeMaxLength;" class="text-sm text-red-500 italic">
               The minimum length of the booking code is 5 characters
             </span>
-          </ng-template>
-          <ng-template #bookingCodeMaxLength>
+            </ng-template>
+            <ng-template #bookingCodeMaxLength>
             <span *ngIf="bookingCode?.errors?.['maxLength'] else bookingCodeValidateNumbers" class="text-sm text-red-500 italic">
-              The minimum length of the booking code is 6 characters
+              The maximum length of the booking code is 6 characters
             </span>
-          </ng-template>
-          <ng-template #bookingCodeValidateNumbers>
+            </ng-template>
+            <ng-template #bookingCodeValidateNumbers>
             <span *ngIf="bookingCode?.errors?.['validateNumbers'] else bookingCodeValidateString" class="text-sm text-red-500 italic">
               Numbers allowed in the booking code are 2-9
             </span>
-          </ng-template>
-          <ng-template #bookingCodeValidateString>
+            </ng-template>
+            <ng-template #bookingCodeValidateString>
             <span *ngIf="bookingCode?.errors?.['validateString']" class="text-sm text-red-500 italic">
               Only alphabetical letters are allowed in the booking code
             </span>
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
-      </div>
-      <div class="mb-4">
-        <label for="family-name" class="text-lg leading-7 font-bold text-gray-600">Family Name</label>
-        <input
-          type="text"
-          id="family-name"
-          name="family-name"
-          class="w-full rounded border border-gray-300 bg-white py-2 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-          placeholder="ABC"
-          formControlName="lastName"
-        />
-        <div *ngIf="ngForm.submitted && checkInForm.invalid" class="text-sm text-red-500 italic">
+        <div class="mb-4">
+          <label for="family-name" class="text-lg leading-7 font-bold text-gray-600">Family Name</label>
+          <input
+            type="text"
+            id="family-name"
+            name="family-name"
+            class="w-full rounded border border-gray-300 bg-white py-2 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+            placeholder="ABC"
+            formControlName="lastName"
+          />
+          <div *ngIf="ngForm.submitted && checkInForm.invalid" class="text-sm text-red-500 italic">
           <span *ngIf="lastName?.errors?.['required']" >
             Family name is required
           </span>
-          <span *ngIf="lastName?.errors?.['minlength']" class="text-sm text-red-500 italic">
+            <span *ngIf="lastName?.errors?.['minlength']" class="text-sm text-red-500 italic">
             Family name should be at least 2 characters
           </span>
-          <span *ngIf="lastName?.errors?.['maxLength']" class="text-sm text-red-500 italic">
+            <span *ngIf="lastName?.errors?.['maxLength']" class="text-sm text-red-500 italic">
             Family name has a maximum length of 30 characters
           </span>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngrxLet="
+        validCheckIn$;
+        error as error;
+    ">
+      <div role="alert" *ngIf="error" class="pb-10 text-red-700">
+        <p>Error: {{error.message}}</p>
+      </div>
+    </ng-container>
     <div class="flex justify-center">
       <button class="w-full md:w-fit rounded border-0 bg-rose-600 py-3 px-6 text-lg text-white hover:bg-indigo-600 focus:outline-none"
               type="submit">

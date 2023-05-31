@@ -1,0 +1,5 @@
+query LoginCheckIn($bookingCode: String!, $lastName: String!){
+  loginCheckIn(bookingCode: $bookingCode, lastName: $lastName) {
+    bookingCode
+  }
+}
