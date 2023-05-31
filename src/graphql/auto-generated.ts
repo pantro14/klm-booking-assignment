@@ -211,6 +211,54 @@ export type BookingDetailsQueryResult = {
   bookingDetails?: {
     __typename?: 'Booking';
     bookingCode?: string | null;
+    passengers?: {
+      __typename?: 'Passengers';
+      firstName?: string | null;
+      lastName?: string | null;
+      title?: { __typename?: 'Title'; name?: string | null } | null;
+    } | null;
+    itinerary?: {
+      __typename?: 'Itinerary';
+      connections?: Array<{
+        __typename?: 'Connections';
+        duration?: string | null;
+        origin?: {
+          __typename?: 'Origin';
+          IATACode?: string | null;
+          name?: string | null;
+          city?: {
+            __typename?: 'City';
+            IATACode?: string | null;
+            name?: string | null;
+            country?: {
+              __typename?: 'Country';
+              code?: string | null;
+              name?: string | null;
+            } | null;
+          } | null;
+        } | null;
+        destination?: {
+          __typename?: 'Destination';
+          IATACode?: string | null;
+          name?: string | null;
+          city?: {
+            __typename?: 'City';
+            IATACode?: string | null;
+            name?: string | null;
+            country?: {
+              __typename?: 'Country';
+              code?: string | null;
+              name?: string | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    contactDetails?: Array<{
+      __typename?: 'ContactDetails';
+      class?: string | null;
+      address?: string | null;
+    } | null> | null;
   } | null;
 };
 
@@ -228,6 +276,46 @@ export const BookingDetailsDocument = gql`
   query BookingDetails($bookingCode: String!) {
     bookingDetails(bookingCode: $bookingCode) {
       bookingCode
+      passengers {
+        title {
+          name
+        }
+        firstName
+        lastName
+      }
+      itinerary {
+        connections {
+          duration
+          origin {
+            IATACode
+            name
+            city {
+              IATACode
+              name
+              country {
+                code
+                name
+              }
+            }
+          }
+          destination {
+            IATACode
+            name
+            city {
+              IATACode
+              name
+              country {
+                code
+                name
+              }
+            }
+          }
+        }
+      }
+      contactDetails {
+        class
+        address
+      }
     }
   }
 `;

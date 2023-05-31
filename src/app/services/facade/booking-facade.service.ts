@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {BookingStateService} from '../state/booking-state.service';
 import {BookingService} from '../booking/booking.service';
-import {mergeMap, Observable, of, throwError} from 'rxjs';
+import {map, mergeMap, Observable, of, switchMap, throwError} from 'rxjs';
 import {CheckInData} from '../../models/check-in-data';
+import {BookingNs} from '../../../graphql/namespace';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class BookingFacadeService {
     bookingCode: string,
     lastName: string
   ): Observable<boolean> {
-    return this.bookingService.validateLogin(
+    return this.bookingService.validateLogin$(
       bookingCode,
       lastName
     ).pipe(
@@ -39,5 +40,16 @@ export class BookingFacadeService {
         }
       })
     );
+  }
+
+  fetchBookingDetails$(
+    bookingCode: string,
+  ): Observable<BookingNs.Booking> {
+    return this.bookingService.fetchBookingDetails$(bookingCode)
+      .pipe(
+        map(response => {
+          return response.data.bookingDetails as BookingNs.Booking;
+        })
+      )
   }
 }

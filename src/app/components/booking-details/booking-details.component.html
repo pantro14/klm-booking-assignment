@@ -1,3 +1,13 @@
-<span class="flex text-xl font-bold pb-4">
-  Booking Code: {{code}}
-</span>
+<ng-container *ngrxLet="
+    bookingDetails$ as bookingDetails;
+    suspenseTpl: loading;
+    error as error;
+">
+  <div class="flex flex-wrap mx-auto space-y-1">
+    {{bookingDetails}}
+  </div>
+  <p *ngIf="error">I am an error</p>
+</ng-container>
+<ng-template #loading>
+  Loading...
+</ng-template>

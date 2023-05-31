@@ -7,7 +7,7 @@ const routes: Routes = [
       import('./components/check-in/check-in.component')
         .then(m => m.CheckInComponent) },
   {
-    path: 'booking-details/:code',
+    path: 'booking-details/:bookingCode',
     loadComponent: () =>
       import('./components/booking-details/booking-details.component')
         .then(m => m.BookingDetailsComponent),

@@ -23,14 +23,14 @@ export class BookingService {
     }
   }
 
-  validateLogin(bookingCode: string, lastName: string): Observable<ApolloQueryResult<BookingNs.LoginCheckInQueryResult>> {
+  validateLogin$(bookingCode: string, lastName: string): Observable<ApolloQueryResult<BookingNs.LoginCheckInQueryResult>> {
     return new BookingNs.LoginCheckInGQL(this.apollo).fetch({
       bookingCode,
       lastName
     });
   }
 
-  fetchBookingDetails(bookingCode: string): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
+  fetchBookingDetails$(bookingCode: string): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
     return new BookingNs.BookingDetailsGQL(this.apollo).fetch({
       bookingCode,
     });
