@@ -1,5 +1,5 @@
-query BookingDetails{
-  booking {
+query BookingDetails($bookingCode: String!, $lastName: String!){
+  booking(bookingCode: $bookingCode, lastName: $lastName) {
     bookingCode
   }
 }

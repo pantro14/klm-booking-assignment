@@ -22,7 +22,10 @@ export class BookingService {
     }
   }
 
-  fetchBookingDetails(): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
-    return new BookingNs.BookingDetailsGQL(this.apollo).fetch();
+  fetchBookingDetails(bookingCode: string, lastName: string): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
+    return new BookingNs.BookingDetailsGQL(this.apollo).fetch({
+      bookingCode,
+      lastName
+    });
   }
 }

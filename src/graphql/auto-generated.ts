@@ -3,23 +3,43 @@ import { Injectable } from '@angular/core';
 import * as Apollo from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
-  ID: { input: string | number; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string | number; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
 }
 
-export interface Query {
-  __typename?: 'Query';
-  booking?: Maybe<Booking>;
+export interface ArrivalTerminal {
+  __typename?: 'ArrivalTerminal';
+  name?: Maybe<Scalars['String']['output']>;
+}
+
+export interface ArriveOn {
+  __typename?: 'ArriveOn';
+  IATACode?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<City>;
+  name?: Maybe<Scalars['String']['output']>;
 }
 
 export interface Booking {
@@ -30,16 +50,23 @@ export interface Booking {
   passengers?: Maybe<Passengers>;
 }
 
-export interface ContactDetails {
-  __typename?: 'ContactDetails';
-  address?: Maybe<Scalars['String']['output']>;
-  class?: Maybe<Scalars['String']['output']>;
+export interface Cabin {
+  __typename?: 'Cabin';
+  code?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 }
 
-export interface Itinerary {
-  __typename?: 'Itinerary';
-  connections?: Maybe<Array<Maybe<Connections>>>;
-  type?: Maybe<Scalars['String']['output']>;
+export interface Carrier {
+  __typename?: 'Carrier';
+  code?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+}
+
+export interface City {
+  __typename?: 'City';
+  IATACode?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Country>;
+  name?: Maybe<Scalars['String']['output']>;
 }
 
 export interface Connections {
@@ -51,18 +78,10 @@ export interface Connections {
   segments?: Maybe<Array<Maybe<Segments>>>;
 }
 
-export interface Destination {
-  __typename?: 'Destination';
-  city?: Maybe<City>;
-  IATACode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-}
-
-export interface City {
-  __typename?: 'City';
-  country?: Maybe<Country>;
-  IATACode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+export interface ContactDetails {
+  __typename?: 'ContactDetails';
+  address?: Maybe<Scalars['String']['output']>;
+  class?: Maybe<Scalars['String']['output']>;
 }
 
 export interface Country {
@@ -71,35 +90,30 @@ export interface Country {
   name?: Maybe<Scalars['String']['output']>;
 }
 
-export interface Origin {
-  __typename?: 'Origin';
-  city?: Maybe<City>;
-  IATACode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-}
-
-export interface Segments {
-  __typename?: 'Segments';
-  arriveOn?: Maybe<ArriveOn>;
-  departFrom?: Maybe<DepartFrom>;
-  id?: Maybe<Scalars['Int']['output']>;
-  informational?: Maybe<Scalars['Boolean']['output']>;
-  marketingFlight?: Maybe<MarketingFlight>;
-  type?: Maybe<Scalars['String']['output']>;
-}
-
-export interface ArriveOn {
-  __typename?: 'ArriveOn';
-  city?: Maybe<City>;
-  IATACode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-}
-
 export interface DepartFrom {
   __typename?: 'DepartFrom';
-  city?: Maybe<City>;
   IATACode?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<City>;
   name?: Maybe<Scalars['String']['output']>;
+}
+
+export interface Destination {
+  __typename?: 'Destination';
+  IATACode?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<City>;
+  name?: Maybe<Scalars['String']['output']>;
+}
+
+export interface Equipment {
+  __typename?: 'Equipment';
+  code?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+}
+
+export interface Itinerary {
+  __typename?: 'Itinerary';
+  connections?: Maybe<Array<Maybe<Connections>>>;
+  type?: Maybe<Scalars['String']['output']>;
 }
 
 export interface MarketingFlight {
@@ -110,12 +124,6 @@ export interface MarketingFlight {
   operatingFlight?: Maybe<OperatingFlight>;
   sellingClass?: Maybe<SellingClass>;
   status?: Maybe<Status>;
-}
-
-export interface Carrier {
-  __typename?: 'Carrier';
-  code?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
 }
 
 export interface OperatingFlight {
@@ -137,21 +145,39 @@ export interface OperatingFlight {
   scheduledDeparture?: Maybe<Scalars['String']['output']>;
 }
 
-export interface ArrivalTerminal {
-  __typename?: 'ArrivalTerminal';
+export interface Origin {
+  __typename?: 'Origin';
+  IATACode?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<City>;
   name?: Maybe<Scalars['String']['output']>;
 }
 
-export interface Cabin {
-  __typename?: 'Cabin';
-  code?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+export interface Passengers {
+  __typename?: 'Passengers';
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Title>;
 }
 
-export interface Equipment {
-  __typename?: 'Equipment';
-  code?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+export interface Query {
+  __typename?: 'Query';
+  booking?: Maybe<Booking>;
+}
+
+export interface QueryBookingArgs {
+  bookingCode: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+}
+
+export interface Segments {
+  __typename?: 'Segments';
+  arriveOn?: Maybe<ArriveOn>;
+  departFrom?: Maybe<DepartFrom>;
+  id?: Maybe<Scalars['Int']['output']>;
+  informational?: Maybe<Scalars['Boolean']['output']>;
+  marketingFlight?: Maybe<MarketingFlight>;
+  type?: Maybe<Scalars['String']['output']>;
 }
 
 export interface SellingClass {
@@ -165,40 +191,40 @@ export interface Status {
   name?: Maybe<Scalars['String']['output']>;
 }
 
-export interface Passengers {
-  __typename?: 'Passengers';
-  firstName?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Int']['output']>;
-  lastName?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Title>;
-}
-
 export interface Title {
   __typename?: 'Title';
   code?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
 }
 
-export type BookingDetailsQueryVariables = Exact<{ [key: string]: never; }>;
+export type BookingDetailsQueryVariables = Exact<{
+  bookingCode: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+}>;
 
-
-export type BookingDetailsQueryResult = { __typename?: 'Query', booking?: { __typename?: 'Booking', bookingCode?: string | null } | null };
+export type BookingDetailsQueryResult = {
+  __typename?: 'Query';
+  booking?: { __typename?: 'Booking'; bookingCode?: string | null } | null;
+};
 
 export const BookingDetailsDocument = gql`
-    query BookingDetails {
-  booking {
-    bookingCode
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class BookingDetailsGQL extends Apollo.Query<BookingDetailsQueryResult, BookingDetailsQueryVariables> {
-    override document = BookingDetailsDocument;
-    override client = 'booking';
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
+  query BookingDetails($bookingCode: String!, $lastName: String!) {
+    booking(bookingCode: $bookingCode, lastName: $lastName) {
+      bookingCode
     }
   }
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class BookingDetailsGQL extends Apollo.Query<
+  BookingDetailsQueryResult,
+  BookingDetailsQueryVariables
+> {
+  override document = BookingDetailsDocument;
+  override client = 'booking';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
