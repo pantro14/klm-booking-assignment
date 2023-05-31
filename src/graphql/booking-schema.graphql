@@ -1,3 +1,9 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
 type ArrivalTerminal {
   name: String
 }
@@ -112,7 +118,8 @@ type Passengers {
 }
 
 type Query {
-  booking: Booking
+  loginCheckIn(bookingCode: String!, lastName: String!): Booking
+  bookingDetails(bookingCode: String!): Booking
 }
 
 type Segments {

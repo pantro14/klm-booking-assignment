@@ -1,12 +1,8 @@
 # GraphQL codegen for countries open API
 
 ## Schema SDL
-1- first run the server:
-`npm run start-server`
-  - [http://localhost:4000/graphql](http://localhost:4000/graphql)
-
-2- Download the schema by running:
-`npm run get-booking-schema`
+1- Download the schema by running:
+`npm run update-schema:server`
 
 
 ## Create autocomplete file with graphql codegen

@@ -6,6 +6,12 @@ const routes: Routes = [
   { path: 'check-in', loadComponent: () =>
       import('./components/check-in/check-in.component')
         .then(m => m.CheckInComponent) },
+  {
+    path: 'booking-details/:bookingCode',
+    loadComponent: () =>
+      import('./components/booking-details/booking-details.component')
+        .then(m => m.BookingDetailsComponent),
+  }
 ];
 
 @NgModule({

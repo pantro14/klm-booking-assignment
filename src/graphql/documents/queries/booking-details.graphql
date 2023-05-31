@@ -1,5 +1,45 @@
-query BookingDetails{
-  booking {
+query BookingDetails($bookingCode: String!){
+  bookingDetails(bookingCode: $bookingCode) {
     bookingCode
+    passengers {
+      title {
+        name
+      }
+      firstName
+      lastName
+    }
+    itinerary {
+      connections {
+        duration
+        origin {
+          IATACode
+          name
+          city {
+            IATACode
+            name
+            country {
+              code
+              name
+            }
+          }
+        }
+        destination {
+          IATACode
+          name
+          city {
+            IATACode
+            name
+            country {
+              code
+              name
+            }
+          }
+        }
+      }
+    }
+    contactDetails {
+      class
+      address
+    }
   }
 }

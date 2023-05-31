@@ -14,4 +14,6 @@ This project contains a server folder which contains the NodeJS Graphql Backend 
 ### Run the client
 `npm run start-client`
 
+### Run Dev
+`npm run start:dev`
 

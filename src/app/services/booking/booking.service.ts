@@ -5,6 +5,7 @@ import {Apollo} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {ApolloQueryResult, InMemoryCache} from '@apollo/client/core';
 import {Observable} from 'rxjs';
+import {LoginCheckInGQL, LoginCheckInQueryResult} from '../../../graphql/auto-generated';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,16 @@ export class BookingService {
     }
   }
 
-  fetchBookingDetails(): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
-    return new BookingNs.BookingDetailsGQL(this.apollo).fetch();
+  validateLogin$(bookingCode: string, lastName: string): Observable<ApolloQueryResult<BookingNs.LoginCheckInQueryResult>> {
+    return new BookingNs.LoginCheckInGQL(this.apollo).fetch({
+      bookingCode,
+      lastName
+    });
+  }
+
+  fetchBookingDetails$(bookingCode: string): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
+    return new BookingNs.BookingDetailsGQL(this.apollo).fetch({
+      bookingCode,
+    });
   }
 }

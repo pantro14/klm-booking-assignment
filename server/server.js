@@ -14,7 +14,18 @@ const typeDefs = fs.readFileSync('./server/graphql/schema.graphql').toString();
 // Resolver
 const resolvers = {
   Query: {
-    booking: (obj, args, context) => context.booking,
+    loginCheckIn: (obj, args, context) => {
+      const { booking } = context;
+      return (
+        args.bookingCode === booking.bookingCode && args.lastName === booking.passengers.lastName
+      ) ? context.booking : null;
+    },
+    bookingDetails: (obj, args, context) => {
+      const { booking } = context;
+      return (
+        args.bookingCode === booking.bookingCode
+      ) ? context.booking : null;
+    },
   },
 }
 
