@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {BookingService} from '../../services/booking/booking.service';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../../utils/custom-validators/custom-validators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-check-in',
@@ -38,6 +39,7 @@ export class CheckInComponent{
   constructor(
     private formBuilder: FormBuilder,
     private bookingService: BookingService,
+    private router: Router
   ) {}
 
   get bookingCode() { return this.checkInForm.get('bookingCode')}
@@ -52,7 +54,7 @@ export class CheckInComponent{
       )
         .subscribe({
           next: (response) => {
-            console.log(response.data.booking);
+            this.router.navigate(['booking-details/' + response.data.booking?.bookingCode])
           },
           error: err => console.error('error: ', err)
         })
