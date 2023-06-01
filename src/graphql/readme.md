@@ -1,4 +1,4 @@
-# GraphQL codegen for countries open API
+# GraphQL codegen booking API
 
 ## Schema SDL
 1- Download the schema by running:

@@ -9,9 +9,8 @@ generates:
       - typescript-operations
       - typescript-apollo-angular
     config:
-      maybeValue: T
       avoidOptionals: true
-      addExplicitOverride: true,
+      addExplicitOverride: true
       declarationKind: interface
       apolloClientVersion: 3
       apolloAngularVersion: 4

@@ -138,7 +138,3 @@ type Query {
   loginCheckIn(bookingCode: String!, lastName: String!): Booking
   bookingDetails(bookingCode: String!): Booking
 }
-
-# Types with identical fields:
-# Title Equipment Cabin Carrier Status Country
-# ArriveOn DepartFrom Destination Origin
