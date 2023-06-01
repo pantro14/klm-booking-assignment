@@ -5,11 +5,15 @@ import {ActivatedRoute} from '@angular/router';
 import {BookingNs} from '../../../graphql/namespace';
 import {BookingFacadeService} from '../../services/facade/booking-facade.service';
 import {LetDirective} from '@ngrx/component';
+import {CardComponent} from '../../common/card/card.component';
+import {FlightDetailsComponent} from '../flight-details/flight-details.component';
+import {PassengerDetailsComponent} from '../passenger-details/passenger-details.component';
+import {ShimmerComponent} from '../../common/shimmer/shimmer.component';
 
 @Component({
   selector: 'app-booking-details',
   standalone: true,
-  imports: [CommonModule, LetDirective],
+  imports: [CommonModule, LetDirective, CardComponent, FlightDetailsComponent, PassengerDetailsComponent, ShimmerComponent],
   templateUrl: './booking-details.component.html',
   styles: [
   ]

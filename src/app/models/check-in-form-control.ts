@@ -1,5 +1,5 @@
 import {Validators} from '@angular/forms';
-import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../utils/custom-validators/custom-validators';
+import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../utils/custom-validators.utils';
 
 export const checkInFormControl = {
   bookingCode: [

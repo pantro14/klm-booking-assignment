@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../../utils/custom-validators/custom-validators';
 import {Router} from '@angular/router';
 import {LetDirective} from '@ngrx/component';
 import {BookingFacadeService} from '../../services/facade/booking-facade.service';

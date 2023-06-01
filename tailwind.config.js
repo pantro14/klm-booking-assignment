@@ -13,6 +13,9 @@ export default {
       'poppins': ['Poppins', 'sans-serif']
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [],
+  },
 }
 

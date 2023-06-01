@@ -11,27 +11,33 @@ query BookingDetails($bookingCode: String!){
     itinerary {
       connections {
         duration
-        origin {
-          IATACode
-          name
-          city {
+        segments {
+          departFrom {
             IATACode
-            name
-            country {
+          }
+          arriveOn {
+            IATACode
+          }
+          marketingFlight {
+            number
+            carrier {
               code
               name
             }
-          }
-        }
-        destination {
-          IATACode
-          name
-          city {
-            IATACode
-            name
-            country {
-              code
+            status {
               name
+            }
+            operatingFlight {
+              checkInStart
+              checkInEnd
+              scheduledDeparture
+              scheduledArrival
+              cabin {
+                name
+              }
+              equipment {
+                name
+              }
             }
           }
         }

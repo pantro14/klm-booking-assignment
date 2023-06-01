@@ -2,18 +2,19 @@
 
 Build a simple working Angular web application with a NodeJS GraphQL backend server.
 
-## The server
+## The server 
 This project contains a server folder which contains the NodeJS Graphql Backend server logic:
 `/server/**`
+### Run the API server
+`npm run start:api-server`
 
-### Run the server
-`npm run start-server`
+### Run the Graphql server
+`npm run start:graphql-server`
 
 ## The Frontend client
-
 ### Run the client
-`npm run start-client`
+`npm run start:client`
 
-### Run Dev
+## Run The Whole Web APP
 `npm run start:dev`
 
