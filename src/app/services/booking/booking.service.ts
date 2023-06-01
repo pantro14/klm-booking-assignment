@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Apollo} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {ApolloQueryResult, InMemoryCache} from '@apollo/client/core';
-import {Observable} from 'rxjs';
+import {delay, Observable} from 'rxjs';
 import {LoginCheckInGQL, LoginCheckInQueryResult} from '../../../graphql/auto-generated';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class BookingService {
   fetchBookingDetails$(bookingCode: string): Observable<ApolloQueryResult<BookingNs.BookingDetailsQueryResult>> {
     return new BookingNs.BookingDetailsGQL(this.apollo).fetch({
       bookingCode,
-    });
+    })
+    // remove this comment if you want to see a beautiful shimmer of 5 second
+    /*.pipe(
+      delay(5000)
+    );*/
   }
 }

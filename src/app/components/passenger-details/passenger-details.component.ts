@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {BookingNs} from '../../../graphql/namespace';
+import {formatPassengerName} from '../../utils/passenger.utils';
 
 @Component({
   selector: 'app-passenger-details',
@@ -9,6 +11,15 @@ import { CommonModule } from '@angular/common';
   styles: [
   ]
 })
-export class PassengerDetailsComponent {
+export class PassengerDetailsComponent  implements OnInit {
+  @Input() contactDetails: BookingNs.ContactDetails;
+  @Input() passenger: BookingNs.Passengers;
 
+  email: string;
+  name: string;
+
+  ngOnInit() {
+    this.name = formatPassengerName(this.passenger);
+    this.email = this.contactDetails.address ? this.contactDetails.address.toLowerCase() : '';
+  }
 }
