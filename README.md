@@ -11,7 +11,7 @@ express + node
 
 `npm run start:api-server`
 
-### Run the Graphql server
+### Run the Graphql server + API server
 graphql-express server + node
 
 `npm run start:graphql-server`
@@ -19,7 +19,7 @@ graphql-express server + node
 ## The Frontend client
 Angular 16 web app + TailwindCss + Daisy UI
 
-### Run the client
+### Run only the client
 `npm run start:client`
 
 ## Run The Whole Web APP

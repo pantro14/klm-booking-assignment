@@ -27,3 +27,10 @@ export const bookingCodeValidateString = (): ValidatorFn => {
     return !isValidString(control.value) ? {validateString: {value: control.value}} : null;
   };
 }
+
+export const validMaxLength = (length: number): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const word = control.value as string;
+    return word.length > length ? {validMaxLength: {value: control.value}} : null;
+  };
+}

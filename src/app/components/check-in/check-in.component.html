@@ -37,7 +37,7 @@
             </span>
             </ng-template>
             <ng-template #bookingCodeMaxLength>
-            <span *ngIf="bookingCode?.errors?.['maxLength'] else bookingCodeValidateNumbers" class="text-sm text-red-500 italic">
+            <span *ngIf="bookingCode?.errors?.['validMaxLength'] else bookingCodeValidateNumbers" class="text-sm text-red-500 italic">
               The maximum length of the booking code is 6 characters
             </span>
             </ng-template>
@@ -67,10 +67,10 @@
           <span *ngIf="lastName?.errors?.['required']" >
             Family name is required
           </span>
-            <span *ngIf="lastName?.errors?.['minlength']" class="text-sm text-red-500 italic">
+          <span *ngIf="lastName?.errors?.['minlength']" class="text-sm text-red-500 italic">
             Family name should be at least 2 characters
           </span>
-            <span *ngIf="lastName?.errors?.['maxLength']" class="text-sm text-red-500 italic">
+          <span *ngIf="lastName?.errors?.['validMaxLength']" class="text-sm text-red-500 italic">
             Family name has a maximum length of 30 characters
           </span>
           </div>

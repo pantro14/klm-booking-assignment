@@ -1,5 +1,5 @@
 import {Validators} from '@angular/forms';
-import {bookingCodeValidateNumbers, bookingCodeValidateString} from '../utils/custom-validators.utils';
+import {bookingCodeValidateNumbers, bookingCodeValidateString, validMaxLength} from '../utils/custom-validators.utils';
 
 export const checkInFormControl = {
   bookingCode: [
@@ -7,7 +7,7 @@ export const checkInFormControl = {
     [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(6),
+      validMaxLength(6),
       bookingCodeValidateNumbers(),
       bookingCodeValidateString(),
     ]
@@ -17,7 +17,7 @@ export const checkInFormControl = {
     [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(30),
+      validMaxLength(30),
     ]
   ],
 }
