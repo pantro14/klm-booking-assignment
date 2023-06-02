@@ -25,4 +25,7 @@ Angular 16 web app + TailwindCss + Daisy UI
 ## Run The Whole Web APP
 `npm run start:dev`
 
+##Solution
+I prepared a Google Doc containing what I call: [The Solution document](https://docs.google.com/document/d/1A83-rkVBuKnFQSz9YN5Q5f6OTUe-fni4lP25n1Xd3Xk/edit?usp=sharing)
+
 
